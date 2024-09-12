@@ -7,7 +7,7 @@ const useUpdateUserProfile = () => {
 	const { mutateAsync: updateProfile, isPending: isUpdatingProfile } = useMutation({
 		mutationFn: async (formData) => {
 			try {
-				const res = await fetch(` /api/users/update`, {
+				const res = await fetch(` https://wegram-working-repo.onrender.com/api/users/update`, {
 					method: "POST",
 					headers: {
 						"Content-Type": "application/json",
