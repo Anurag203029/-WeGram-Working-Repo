@@ -1,5 +1,4 @@
-import { Navigate, Route, Routes } from "react-router-dom"
-
+import { Navigate, Route, Routes } from "react-router-dom";
 import HomePage from "./pages/home/HomePage";
 import LoginPage from "./pages/auth/login/LoginPage";
 import SignUpPage from "./pages/auth/signup/SignUpPage";
@@ -34,35 +33,54 @@ function App() {
 		retry: false,
 	});
 
+	// Show loading spinner while fetching user data
 	if (isLoading) {
 		return (
-			<div className='h-screen flex justify-center items-center'>
-				<LoadingSpinner size='lg' />
+			<div className="h-screen flex justify-center items-center">
+				<LoadingSpinner size="lg" />
 			</div>
 		);
 	}
 
 	return (
-		<div className='flex max-w-6xl mx-auto'>
+		<div className="flex max-w-6xl mx-auto">
 			{authUser && <Sidebar />}
 			<Routes>
-				{/* <Route path='/' element={<HomePage />} />
-				<Route path='/login' element={<LoginPage />} /> */}
-				{/* <Route path='/otp-verify' element={ <OTPVerification />} /> */}
-				{/* <Route path='/signup' element={<SignUpPage />} />
-				<Route path='/notifications' element={<NotificationPage />} />
-				
-				<Route path='/profile/:username' element={<ProfilePage />} /> */}
-				{/* <Route path='/otp-verify' element={!authUser ? <OTPVerification /> : <Navigate to='/' />} /> */}
-				<Route path='/otp-verify' element={!authUser || !authUser.isOtpVerified ? <OTPVerification /> : <Navigate to='/' />} />
+				{/* Protect the OTP verification route: Only allow if OTP is not verified */}
+				<Route
+					path="/otp-verify"
+					element={!authUser || !authUser.isOtpVerified ? <OTPVerification /> : <Navigate to="/" />}
+				/>
 
-				<Route path='/' element={authUser ? <HomePage /> : <Navigate to='/login' />} />
-				<Route path='/login' element={!authUser ? <LoginPage /> : <Navigate to='/' />} />
-				<Route path='/signup' element={!authUser ? <SignUpPage /> : <Navigate to='/' />} />
-				<Route path='/notifications' element={authUser ? <NotificationPage /> : <Navigate to='/login' />} />
-				<Route path='/profile/:username' element={authUser ? <ProfilePage /> : <Navigate to='/login' />} />
+				{/* Protect the HomePage route: Redirect to login if not authenticated */}
+				<Route
+					path="/"
+					element={authUser ? <HomePage /> : <Navigate to="/login" />}
+				/>
+
+				{/* Redirect to HomePage if already authenticated */}
+				<Route
+					path="/login"
+					element={!authUser ? <LoginPage /> : <Navigate to="/" />}
+				/>
+
+				<Route
+					path="/signup"
+					element={!authUser ? <SignUpPage /> : <Navigate to="/" />}
+				/>
+
+				<Route
+					path="/notifications"
+					element={authUser ? <NotificationPage /> : <Navigate to="/login" />}
+				/>
+
+				<Route
+					path="/profile/:username"
+					element={authUser ? <ProfilePage /> : <Navigate to="/login" />}
+				/>
 			</Routes>
-			
+
+			{/* Show RightPanel if user is authenticated */}
 			{authUser && <RightPanel />}
 			<Toaster />
 		</div>
