@@ -3,8 +3,6 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 import XSvg from "../../../components/svgs/X";
-// import { ToastContainer, toast } from 'react-toastify';
-  import 'react-toastify/dist/ReactToastify.css';
 
 import { MdOutlineMail } from "react-icons/md";
 import { MdPassword } from "react-icons/md";
