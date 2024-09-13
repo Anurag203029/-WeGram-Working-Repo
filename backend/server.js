@@ -23,7 +23,7 @@ const app = express();
 app.use(express.json({limit:"5mb"}));
 const port =process.env.PORT || 5000 ;
 app.use(cors({
-	origin: "https://mellifluous-youtiao-4dab9d.netlify.app",//frontend code
+	origin: "https://legendary-beignet-721ad7.netlify.app",//frontend code
 
 }))
 
